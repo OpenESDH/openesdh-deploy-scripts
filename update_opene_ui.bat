@@ -1,0 +1,18 @@
+rem @ECHO OFF
+
+SET UPDATE_MARKER_FILE=C:\opene_updates\opene_ui\update.txt
+
+IF NOT EXIST %UPDATE_MARKER_FILE% EXIT 1
+
+cd c:\OpeneUI
+
+git pull
+
+call bower update
+
+del %UPDATE_MARKER_FILE%
+
+gulp build
+
+:ex
+EXIT 0
