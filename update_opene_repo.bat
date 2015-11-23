@@ -27,6 +27,7 @@ rem Call :InstallAmp staff-repo.amp
 rem Call :InstallAmp aoi-repo.amp
 rem Call :InstallAmp office-repo.amp
 
+call :InstallAddo
 
 call "%ALF_HOME%bin\clean_tomcat.bat"
 
@@ -51,6 +52,12 @@ rem "%JAVA_HOME%\bin\java" -jar "%ALF_HOME%bin\alfresco-mmt.jar" install "%unzip
 :InstallAmps
 "%JAVA_HOME%\bin\java" -jar "%ALF_HOME%bin\alfresco-mmt.jar" install "%unzip_folder%" "%CATALINA_HOME%\webapps\alfresco.war" -directory -nobackup -force
 
+exit /b 0
+
+:InstallAddo
+rmdir /S /Q "%CATALINA_HOME%\webapps\addo_webapp"
+del %CATALINA_HOME%\webapps\addo_webapp.war
+move C:\opene_updates\opene_repo\addo_webapp.war %CATALINA_HOME%\webapps\addo_webapp.war
 exit /b 0
 
 :UnZipFile <ExtractTo> <newzipfile>
