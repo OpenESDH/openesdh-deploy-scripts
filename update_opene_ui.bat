@@ -8,11 +8,12 @@ cd c:\OpeneUI
 
 git pull
 
+call npm install
 call bower update
 
 del %UPDATE_MARKER_FILE%
-
-gulp build
+call gulp all-modules-install
+gulp all-modules build
 
 :ex
 EXIT 0
