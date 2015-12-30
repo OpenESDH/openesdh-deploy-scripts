@@ -50,7 +50,17 @@ rem :InstallAmp <amp_file>
 rem "%JAVA_HOME%\bin\java" -jar "%ALF_HOME%bin\alfresco-mmt.jar" install "%unzip_folder%" "%CATALINA_HOME%\webapps\alfresco.war" -directory -nobackup -force
 
 :InstallAmps
+rem find "openesdh-repo*.amp" file and install it first
+set REPO_AMP='';
+FOR /F "delims=" %%A IN ('dir %unzip_folder%\openesdh-repo*.amp /S /b') DO (
+  set REPO_AMP=%%A
+)
+"%JAVA_HOME%\bin\java" -jar "%ALF_HOME%bin\alfresco-mmt.jar" install "%REPO_AMP%" "%CATALINA_HOME%\webapps\alfresco.war" -nobackup -force
+del %REPO_AMP%
+
+rem install all other amps
 "%JAVA_HOME%\bin\java" -jar "%ALF_HOME%bin\alfresco-mmt.jar" install "%unzip_folder%" "%CATALINA_HOME%\webapps\alfresco.war" -directory -nobackup -force
+
 
 exit /b 0
 
@@ -60,23 +70,10 @@ del %CATALINA_HOME%\webapps\addo_webapp.war
 move C:\opene_updates\opene_repo\addo_webapp.war %CATALINA_HOME%\webapps\addo_webapp.war
 exit /b 0
 
+
 :UnZipFile <ExtractTo> <newzipfile>
-set vbs="%temp%\_.vbs"
-if exist %vbs% del /f /q %vbs%
->%vbs%  echo Set fso = CreateObject("Scripting.FileSystemObject")
->>%vbs% echo If NOT fso.FolderExists(%1) Then
->>%vbs% echo fso.CreateFolder(%1)
->>%vbs% echo End If
->>%vbs% echo Set objFSO = CreateObject("Scripting.FileSystemObject")
->>%vbs% echo objFSO.DeleteFile(%1 + "*"), TRUE
->>%vbs% echo set objShell = CreateObject("Shell.Application")
->>%vbs% echo set FilesInZip=objShell.NameSpace(%2).items
->>%vbs% echo objShell.NameSpace(%1).CopyHere FilesInZip, 256
->>%vbs% echo Set fso = Nothing
->>%vbs% echo Set objShell = Nothing
->>%vbs% echo Set objFSO = Nothing
-cscript //nologo %vbs%
-if exist %vbs% del /f /q %vbs%
+rmdir /S /Q "%unzip_folder%"
+call "C:\Program Files\7-Zip\7z" e %UPDATE_REPO_ZIP% -o%unzip_folder% -y
 
 exit /b 0
 
