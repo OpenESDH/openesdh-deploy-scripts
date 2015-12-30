@@ -17,6 +17,8 @@ Call :UnZipFile "%unzip_folder%\" "%UPDATE_REPO_ZIP%"
 
 Call :PrepareAlfrescoWar
 
+copy /Y c:\install\alfresco-spp-*.amp %unzip_folder%
+
 Call :InstallAmps
 rem Call :InstallAmp annotations.amp
 rem Call :InstallAmp webscripts.amp
