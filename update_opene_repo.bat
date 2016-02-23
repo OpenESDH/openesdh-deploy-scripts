@@ -17,6 +17,8 @@ Call :UnZipFile "%unzip_folder%\" "%UPDATE_REPO_ZIP%"
 
 Call :PrepareAlfrescoWar
 
+copy /Y c:\install\alfresco-spp-*.amp %unzip_folder%
+
 Call :InstallAmps
 rem Call :InstallAmp annotations.amp
 rem Call :InstallAmp webscripts.amp
@@ -50,6 +52,7 @@ rem :InstallAmp <amp_file>
 rem "%JAVA_HOME%\bin\java" -jar "%ALF_HOME%bin\alfresco-mmt.jar" install "%unzip_folder%" "%CATALINA_HOME%\webapps\alfresco.war" -directory -nobackup -force
 
 :InstallAmps
+
 rem find "openesdh-repo*.amp" file and install it first
 set REPO_AMP='';
 FOR /F "delims=" %%A IN ('dir %unzip_folder%\openesdh-repo*.amp /S /b') DO (
