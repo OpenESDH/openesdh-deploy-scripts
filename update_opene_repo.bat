@@ -18,6 +18,7 @@ Call :UnZipFile "%unzip_folder%\" "%UPDATE_REPO_ZIP%"
 Call :PrepareAlfrescoWar
 
 copy /Y c:\install\alfresco-spp-*.amp %unzip_folder%
+copy /Y c:\install\alfresco-googledocs-repo-3.0.2*.amp %unzip_folder%
 
 Call :InstallAmps
 rem Call :InstallAmp annotations.amp
