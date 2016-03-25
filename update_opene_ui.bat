@@ -24,13 +24,13 @@ rem Updating tenants' UI
 cd c:\inetpub\visma_dk
 call git pull
 call npm install
-call gulp projectRooms-install
+call gulp all-modules-install
 call gulp projectRooms build
 
 cd c:\inetpub\magenta_dk
 call git pull
 call npm install
-call gulp staff-install
+call gulp all-modules-install
 call gulp staff build
 
 
